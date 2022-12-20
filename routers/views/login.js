@@ -1,12 +1,10 @@
 import { Router } from 'express';
 import passport from 'passport';
-import logger from '../../logger.js';
 
 const router = Router();
 
 router.get('/', (req, res) => {
       if (!req.isAuthenticated()) {
-            logger.info(`Ruta ${req.originalUrl} metodo GET`);
             res.render('login');
       } else {
             const { user } = req;
@@ -23,13 +21,11 @@ router.post(
       })
 );
 router.get('/faillogin', (req, res) => {
-      logger.info(`Ruta ${req.originalUrl} metodo GET`);
       req.session.messages = [];
       res.render('faillogin');
 });
 
 router.post('/logout', (req, res) => {
-      logger.info(`Ruta ${req.originalUrl} metodo POST`);
       const { username } = req.body;
       req.logout((error) => {
             if (!error) {
